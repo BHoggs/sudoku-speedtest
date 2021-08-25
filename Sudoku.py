@@ -71,7 +71,7 @@ def solve():
 
     else:
         row, col = find
-        print ("\rSolving... Row: %d, Col: %d" % (row+1,col+1), end='')
+        #print ("\rSolving... Row: %d, Col: %d" % (row+1,col+1), end='')
 
     for i in range(1, 10):
         if valid(i, (row, col)):

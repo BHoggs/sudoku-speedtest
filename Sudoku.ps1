@@ -82,7 +82,7 @@ function solve {
     else {
         $row, $col = $find
         #Write-Progress -Activity "Solving..." -CurrentOperation "Row: $($row+1), Col: $($col+1)" -PercentComplete ([math]::round($row*$col/64*100))
-        [Console]::Write("`rSolving... Row: $($row+1), Col: $($col+1)")
+        #[Console]::Write("`rSolving... Row: $($row+1), Col: $($col+1)")
     }
 
     foreach ($i in 1..9) {

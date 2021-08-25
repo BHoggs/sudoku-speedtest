@@ -3,22 +3,10 @@ using System.Diagnostics;
 
 namespace sudoku
 {
-    class Program
+    class Solver
     {
-        public static int[,] board = new int[9,9] {
-            {0,0,0, 0,3,0, 0,0,0},
-            {0,0,1, 0,7,6, 9,4,0},
-            {0,8,0, 9,0,0, 0,0,0},
-
-            {0,4,0, 0,0,1, 0,0,0},
-            {0,2,8, 0,9,0, 0,0,0},
-            {0,0,0, 0,0,0, 1,6,0},
-
-            {7,0,0, 8,0,0, 0,0,0},
-            {0,0,0, 0,0,0, 4,0,2},
-            {0,9,0, 0,1,0, 3,0,0}
-        };
-        public static void print_board() {
+        public int[,] board;
+        public void print_board() {
             for (int i = 0; i <= 8; i++) {
                 if (i % 3 == 0 && i != 0) {
                     Console.WriteLine("- - - - - - - - - - -");
@@ -39,7 +27,7 @@ namespace sudoku
             }
         }
 
-        public static int[] find_empty() {
+        private int[] find_empty() {
             for (int i = 0; i <= 8; i++) {
                 for (int j = 0; j <= 8; j++) {
                     if (board[i,j] == 0) {
@@ -50,7 +38,7 @@ namespace sudoku
             return null;
         }
 
-        public static bool valid(int num, int[] pos) {
+        private bool valid(int num, int[] pos) {
             // Check row
             for (int i = 0; i <= 8; i++) {
                 if (board[pos[0], i] == num && pos[1] != i) {
@@ -80,7 +68,7 @@ namespace sudoku
             return true;
         }
 
-        public static bool solve() {
+        public bool solve() {
             int row;
             int col;
             int[] find = find_empty();
@@ -90,7 +78,7 @@ namespace sudoku
             else {
                 row = find[0]; 
                 col = find[1];
-                Console.Write("\rSolving... Row: " + (row+1) + ", Col: " + (col+1));
+                //Console.Write("\rSolving... Row: " + (row+1) + ", Col: " + (col+1));
             }
 
             for (int i = 1; i <= 9; i++) {
@@ -107,21 +95,39 @@ namespace sudoku
 
             return false;
         }
-
-
+    }
+    class Program
+    {
         static void Main(string[] args)
         {
+            Solver s = new Solver();
+
+            s.board = new int[9,9] 
+            {
+                {0,0,0, 0,3,0, 0,0,0},
+                {0,0,1, 0,7,6, 9,4,0},
+                {0,8,0, 9,0,0, 0,0,0},
+
+                {0,4,0, 0,0,1, 0,0,0},
+                {0,2,8, 0,9,0, 0,0,0},
+                {0,0,0, 0,0,0, 1,6,0},
+
+                {7,0,0, 8,0,0, 0,0,0},
+                {0,0,0, 0,0,0, 4,0,2},
+                {0,9,0, 0,1,0, 3,0,0}
+            };
+
             Stopwatch stopwatch = new Stopwatch();
-            print_board();
+            s.print_board();
             stopwatch.Start();
-            solve();
+            s.solve();
             stopwatch.Stop();
             Console.WriteLine("");
             Console.WriteLine("Milliseconds to Solve: " + (stopwatch.ElapsedMilliseconds));
 
             Console.WriteLine("");
             Console.WriteLine("_____________________");
-            print_board();
+            s.print_board();
             Console.ReadLine();
         }
     }
